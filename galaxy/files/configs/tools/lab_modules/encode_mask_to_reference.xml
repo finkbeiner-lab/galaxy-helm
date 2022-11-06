@@ -1,0 +1,23 @@
+<tool id="reference_encoding" name="Reference Encoding" version="0.01">
+
+<description>Encode query mask to match reference mask. See Alicia Lee. </description>
+
+<command interpreter="python">
+encode_mask_to_reference.py $input_dict $path_to_ref_masks $path_to_query_masks $outfile
+</command>
+
+<inputs>
+<param name="input_dict" type="data" format="data" label="Local variables dictionary (output from 'Segment Cells')."/>
+<param name="path_to_ref_masks" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/CellMasks" size="70" label="Enter path to reference masks whose encoding will be applied to reference masks. Example: CellMasks" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="path_to_query_masks" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/CellMasks" size="70" label="Enter path to query masks that will receive encoding from reference. Example: CellMasks" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Reference Encoding Result"/>
+</outputs>
+
+<help>
+Generates encoding for reference and query masks.
+</help>
+
+</tool>

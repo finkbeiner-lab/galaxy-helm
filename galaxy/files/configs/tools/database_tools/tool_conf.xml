@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<toolbox>
+   <section id="database_tools" name="Database Modules">
+   	<tool file="database_tools/create_or_add_new_images_database.xml"/>
+   	<tool file="database_tools/query_db_to_csv.xml"/>
+  </section>
+
+ 
+</toolbox>

@@ -1,0 +1,25 @@
+<tool id="Rscript" name="R script example." version="0.01">
+
+<description>Run an R script.</description>
+
+<command>
+R --slave --vanilla -f /Volumes/mbarch/code/cell_reader_rscript.R --args $infile1 $outfile1
+</command>
+
+<inputs>
+<param name="infile1" type="data" format="text" label="Select comma-separated text file"/>
+</inputs>
+
+<outputs>
+<data name="outfile1" type="data" format="tabular" label="Rscript"/>
+</outputs>
+
+<help>
+Runs an R script.
+</help>
+
+</tool>
+
+
+<!-- write.table(data, sep="\t", file=out.file, row.names=F)
+ -->

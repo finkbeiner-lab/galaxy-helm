@@ -1,0 +1,34 @@
+<tool id= "Spectral_Deconvolution" name="VF5Spectraldeconvolution"
+      version="0.1">
+
+  <description>
+    yup! .....deconvolves the spectra.....
+  </description>
+  <command interpreter="python">
+    VF5Spectraldeconvolution.py $inputPath $data $ref $empty
+  </command>
+
+  <inputs>
+    <param name="inputPath" type ="text" format="text" label="Input File Path" help="" />
+    <param name="OutputPath" type ="text" format="text" label="Output
+							       File
+							       Path"
+	   help="Enter full file path" />
+    <param name="dataWells" type ="text" format="text" label="Data Wells"
+	   help="Enter as comma separated (e.g. A1,A2,A3)" />
+    <param name="refWells" type ="text" format="text" label="Reference Wells" help="Enter as comma separated (e.g. A1,A2,A3)" />
+    <param name="emptyWell" type ="text" format="text" label ="Empty Well"
+	   help="Enter as single well  (e.g. A1)" />
+  </inputs>
+
+  <outputs>
+    <data name="outfile" type="text" format="text"
+	  label="VF5Spectraldeconvolution_output" />
+  </outputs>
+  
+  <help>
+    take input directory
+  </help>
+	
+      </tool>
+      

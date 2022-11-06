@@ -1,0 +1,44 @@
+<tool id="In_Silico_Labeling_Training" name="In-Silico Labeling - Training" version="0.02">
+
+	<description> This one is for Training.</description>
+
+	<command>
+		<!-- <command interpreter="bash"> -->
+		<!-- /home/sinadabiri/venvs/tensorflow/SinaFlow/bin/activate
+    /home/sinadabiri/galaxy-neuron-analysis/galaxy -->
+
+
+		source /finkbeiner/imaging/home/fbgalaxy/.virtualenvs/insilico/bin/activate;
+
+		echo "Before Python";
+
+
+		python3.6 /finkbeiner/imaging/home/galaxy/tools/dev_staging_modules/ISL_training.py $infile $dataset_train_path $model_location $output_path $until_step $outfile;
+
+
+		echo "End of Training";
+	</command>
+
+<inputs>
+	<param name="infile" type="data" format="data" label="Local variables dictionary (output from 'Create Folders')."/>
+
+	<param name="dataset_train_path" type="text" format="text" label="Specify path for training data images." value="/finkbeiner/imaging/smb-robodata/Sina/data_sample/condition_b_sample2" help="For example: /finkbeiner/imaging/smb-robodata/your_folders" size="70" />
+
+	<param name="model_location" type="text" format="text" label="Specify model location. This is the path where the last model checkpoint is stored." value="/finkbeiner/imaging/home/in-silico/checkpoints" help="For example: /finkbeiner/imaging/home/in-silico/in-silico-labeling/isl/checkpoints" size="70" />
+
+	<param name="output_path" type="text" format="text" label="Specify path for the output, where the new checkpoints will be saved in a subfolder called 'train'." value="/finkbeiner/imaging/smb-robodata/Sina/ServerTesting/Outputs" help="For example: /finkbeiner/imaging/smb-robodata/your_folders" size="70" />
+
+	<param name="until_step" type="text" format ="text" label="Specify the final step of training you want the training to go on." value = "1" help="It will train for an additional steps till it reaches the number you specify!" size="70" />
+
+</inputs>
+
+<outputs>
+	<data name="outfile" type="data" format="data" label="ISL_training"/>
+</outputs>
+
+<help>
+	This interface sends Unix commands to run In-Silico Labeling TensorFlow program (Christiansen et al 2018). There are two modes: Predicting and Training. This one is for Training. The user will get new checkpoints based on if they want to continue training the ISL model or start from scratch and train the model from step 1.
+</help>
+
+</tool>
+

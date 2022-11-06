@@ -1,0 +1,53 @@
+<tool id="neuphologyj" name="NeuphologyJ Neurites Extraction">
+
+<description>neurites extraction</description>
+
+<command>
+<!-- No comma between arguments!! It will actually run in comman line -->
+<!-- Use single quotes to protest path possible with parentheses running in bash shell -->
+
+/usr/local/bin/Fiji.app/ImageJ-linux64  --headless -macro /usr/local/bin/Fiji.app/macros/passCmdLineParameters.ijm  '$input_path, $output_path, $neurite_sensitivity, $soma_sensitivity, $neurite_width, $particle_cleanup, 
+<!-- DO NOT foget the single quote!!!  -->
+#if str($ref_output_path) != '':
+    $ref_output_path,
+#end if
+
+$result_txt'
+
+
+</command>
+
+<inputs>
+
+<param name="input_path" type="text" label="Input path" help="Source images directory"/>
+<param name="output_path" type="text" label="Output path" help="Output Neurite masks directory"/>
+<param name="neurite_sensitivity" type="integer"  value="" label="Neurite Sensitivity" help="integer, contrast level" optional="false"/>
+<param name="soma_sensitivity" type="integer"  value="" label="Soma Sensitivity" help="integer, soma intensity" optional="false"/>
+<param name="neurite_width" type="integer"  value="" label="Neurite Width" help="integer, the width of a typical neurite" optional="false"/>
+<param name="particle_cleanup" type="integer"  value="" label="Particle Cleanup" help="integer, particle cleanup value" optional="false"/>
+
+
+
+<!-- Be careful of the space between parameters, since galaxy will show nothing and indicate no error trace-->
+ 
+<!-- No format tag like text if type is integer, and has to provide value tag-->
+
+
+<param name="ref_output_path" type="text"  value="" label="Reference output path" help="Save reference attachment and end points images as well" optional="true"/>
+
+
+
+
+
+
+</inputs>
+
+<outputs>
+<data name="result_txt" format="txt" label="result_output"/>
+
+</outputs>
+
+<help>
+Please run NeurphologyJ interactive macro in Fiji first to determine the optimal contrast level and soma intensity.
+</help>
+</tool>

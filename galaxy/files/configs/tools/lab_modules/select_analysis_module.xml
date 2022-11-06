@@ -1,0 +1,79 @@
+<tool id="select_module" name="Select analysis module (phasing out)" version="1.0">
+
+<description>Finds cells in an image.</description>
+
+<command interpreter="python">
+select_analysis_module.py $output_results_path $morphology_channel $robo_num $light_path $hnum $vnum $px_overlap $module $outfile 
+
+#if str($input_image_path) !='': 
+   --input_path $input_image_path
+#end if
+#if str($input_dict) !='None': 
+   --var_dict $input_dict
+#end if
+#if str($min_feature) !='': 
+   --min_cell $min_feature
+#end if
+#if str($max_feature) !='': 
+   --max_cell $max_feature
+#end if
+#if str($threshold) !='': 
+   --threshold $threshold
+#end if
+#if str($these_wells_only) !='': 
+   --chosen_wells '$these_wells_only'
+#end if
+#if str($these_times_only) !='': 
+   --chosen_timepoints '$these_times_only'
+#end if
+#if str($channel_token) !='': 
+   --channel_token '$channel_token'
+#end if
+</command>
+
+<inputs>
+<param name="input_image_path" type="text" format="text" value="/media/robodata/your_folders" size="70" label="Enter path to data you would like processed. Make sure path exists." help="Note that RoboData/your_folders = /media/robodata/your_folders" optional="true"/>
+<param name="output_results_path" type="text" format="text" value="/media/robodata/your_folders" size="70" label="Enter path to where you would like output to go. Make sure path exists." help="Note that RoboData/your_folders = /media/robodata/your_folders"/>
+<param name="module" type="select" label="Select an analysis module" help="Choose type of analysis you'd like to run.">
+            <option value="BgCorrection" selected="true"      >Background Correction</option>
+            <option value="Montage"	    			      >Stitch Images (Montage)</option>
+            <option value="AlignIJ"                           >Align Images (ImageJ)</option>
+            <option value="CropBorders"            >Crop images to alignment borders</option>
+            <option value="Segment"    	                            >Segment Cells</option>
+            <option value="Track"                          	   	      >Track Cells</option>
+            <option value="Overlay"                 		         >Overlay Tracks</option>
+            <option value="Extract"                               >Extract Cell Info</option>
+</param>
+<param name="morphology_channel" type="text" format="text" value="RFP-DFTrCy5" label="Enter morphology channel identifier. This should match the characters in filename." help="Ex. RFP, FITC, Green, 607"/>
+<param name="robo_num" type="select" label="Select light path" help="Select Robo used for imaging.">
+            <option value="3"  selected="true"  >Robo3</option>
+            <option value="4"                   >Robo4</option>
+</param>
+<param name="light_path" type="select" label="Select light path" help="Select type of imaging (if using Robo4 data): Epi or Confocal.">
+            <option value="epi" selected="true"    >Epi fluorescence</option>
+            <option value="confocal"                       >Confocal</option>
+</param>
+<param name="hnum" type="integer" value="" label="Enter montage image rows." help="Ex. 4"/>
+<param name="vnum" type="integer" value="" label="Enter montage image columns." help="Ex. 4"/>
+<param name="px_overlap" type="integer" value="30" label="Enter image overlap in pixels" help="Ex. 30"/>
+<param name="min_feature" type="integer" value="" label="For segmentation (optional): Enter mimumum feature size." help="Ex. 50" optional="true"/>
+<param name="max_feature" type="integer" format="text" value="" label="For segmentation (optional): Enter maximum feature size." help="Ex. 2500" optional="true"/>
+<param name="threshold" type="float" format="text" value="" label="For segmentation (optional): Enter threshold intensity value as % of maximum intensity." help="Ex. 0.10" optional="true"/>
+<param name="input_dict" type="data" format="data" value="" label="Previous output (optional)." optional="true" help="Necessary for Overlay Tracks module and Extract Cell Info module."/>
+<param name="these_wells_only" type="text" format="text" value="" size="70" label="Optional: Enter wells you would like analyzed, separated by commas. Duplicates will be removed." help="Ex. A1,A8,A8,A10,H11,H1" optional="true"/>
+<param name="these_times_only" type="text" format="text" value="" size="70" label="Optional: Enter timepoints you would like analyzed, separated by commas. Duplicates will be removed." help="Ex. T3,T4,T5" optional="true"/>
+<param name="channel_token" type="text" format="text" value="" size="70" label="Advanced: Enter the number token for your channel (index from zero)." help="Ex. Enter 9 for: PID20150526_BurstExpt_T3_72_H1_1_488_561_Empty_525_1_0.0_AndorZyla220XELWD" optional="true"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Module Result"/>
+</outputs>
+
+<help>
+Chose individual modules to run.
+Select input path for images to process and output path for destination of processed images.
+Montaging is currently required for all downstream steps. Bavkground subtraction is optional. 
+Extract cell info module and overlay tracks module require that tracking step is completed. Both modules will use Track Cells output as their input.
+</help>
+
+</tool>

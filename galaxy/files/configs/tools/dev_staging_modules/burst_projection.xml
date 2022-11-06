@@ -1,0 +1,32 @@
+<tool id="burst_projection_dev" name="Burst Projection" version="1.0">
+<description>Projects bursts into single image.</description>
+
+<command interpreter="python">
+burst_projection.py $infile $outfile
+
+#if $channels != '':
+       --channels '$channels'
+#end if
+#if $input_image_path != '':
+       --input_image_path '$input_image_path'
+#end if
+#if $output_results_path != '':
+   --output_results_path '$output_results_path'
+#end if
+</command>
+
+<inputs>
+<param name="infile" type="data" format="data" label="Local variables dictionary (output from 'Correct Background')."/>
+<param name="channels" type="text" format="text" value="" size="70" label="Optional: Enter comma-separated list of channels to process." help="Leave blank to process all available channels. Channels with no burst images will be copied to the output folder (so all images are together for downstream processing)." optional='true'/>
+<param name="input_image_path" type="text" format="text" value="" size="70" label="Optional: Enter path to images that need to be montaged." help="Leave blank to get from BackgroundCorrected folder in the Galaxy output folder, or enter path to images to be montaged, e.g. /finkbeiner/imaging/smb-robodata/your_folders/BackgroundCorrected" optional='true'/>
+<param name="output_results_path" type="text" format="text" value="" size="70" label="Optional: Enter path to output destination." help="Leave blank to save to BurstProjected folder in the Galaxy output folder, or enter another path, e.g. /finkbeiner/imaging/smb-robodata/your_folders/BurstProjected" optional='true'/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="data" format="data" label="Burst Projection"/>
+</outputs>
+
+<help>
+Project burst images into a single image.
+</help>
+</tool>

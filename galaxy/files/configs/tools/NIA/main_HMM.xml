@@ -1,0 +1,42 @@
+<tool id="nia_hmm" name="HMM Neurite Analysis" version="1.0">
+
+<description>Neuron Image Analyzer HMM Neurite Analysis</description>
+
+<command>
+matlab -nodisplay -nosplash -nodesktop -r "cd('/finkbeiner/imaging/home/galaxy/tools/NIA'); main_HMM('$dataFolder', '$outputFolder', $kernelSize, $kernelScale, $levelsetR, $initR, $r, $numNode, $threDisconnect);"
+</command>
+
+<inputs>
+<param name="dataFolder" type="text" format="text" size="70" label="Enter path to source images"/>
+<param name="outputFolder" type="text" format="text" size="70" label="Enter output path"/>
+<param name="kernelSize" type="integer" value="80" size="10" label="Size of LoG filter" help="(unit: pixel) (depend on the scale of image)"/>
+<param name="kernelScale" type="integer" value="20" size="10" label="Scale of LoG filter" help="(unit: pixel) (depend on the scale of image)"/>
+<param name="levelsetR" type="integer" value="40" size="10" label="Parameter for level set" help="(refer to 'Distance Regularized Level Set Evolution and Its Application to Image Segmentation', in IEEE TRANSACTIONS ON IMAGE PROCESSING)  "/>
+<param name="initR" type="integer" value="70" size="10" label="Distance between the origin and the first node" help="(unit: pixel) (depend on the scale of image)"/>
+<param name="r" type="integer" value="15" size="10" label="Length between nodes" help="(unit: pixel) (depend on the image scale)"/>
+<param name="numNode" type="integer" value="100" size="10" label="Number of node including the first node" help="(r*numNode is the maximimum length that a axon can have)"/>
+
+<param name="threDisconnect" type="float" value="0.9" label="Parameter for disconnecting axon tracing " help="float, ( if the tracing finishes earlier than expected, reduce this value)"/>
+
+
+ 
+
+
+
+</inputs>
+
+
+
+
+
+<outputs>
+<data name="outfile" type="data" format="data" label="HMM Neurite Analysis Result"/>
+</outputs>
+
+<help>
+MATLAB analysis. Neuron Image Analyzer Hidden Markov Model(HMM) + Dynamic Programming for tracing neurites.
+</help>
+
+
+</tool>
+

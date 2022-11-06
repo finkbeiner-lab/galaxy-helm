@@ -1,0 +1,23 @@
+<tool id="clean_up" name="Remove folders" version="0.03">
+
+<description>Removes previous steps in image analysis pipeline.</description>
+
+<!-- <command> -->
+<!-- rm -r $path_to_trash_directory/$trash_directory; ls $path_to_trash_directory -->
+<command interpreter="python">
+	clean_up_folders.py $trash_directory ${outfile}
+</command>
+
+<inputs>
+<param name="trash_directory" type="text" format="text" label="Enter path for directory to remove." size="40"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="text" label="Clean Up Folders Result"/>
+</outputs>
+
+<help>
+To remove output from previous analysis steps. Enter complete path of the folder you wish to remove.
+</help>
+
+</tool>

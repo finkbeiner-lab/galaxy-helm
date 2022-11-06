@@ -1,0 +1,24 @@
+<tool id="draw_track" name="Overlay Cell Tracks" version="0.01">
+
+<description>Add cell annotation to images.</description>
+
+<command interpreter="python">
+overlay_tracks.py $input_dict $input_image_path $output_results_path $mask_path $outfile
+</command>
+
+<inputs>
+<param name="input_dict" type="data" format="data" label="Local variables dictionary (output from 'Track Cells')."/>
+<param name="input_image_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/AlignedImages" size="70" label="Enter path to images that should be annotated. Example: AlignedImages" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="mask_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/CellMasks" size="70" label="Enter path to cell masks. Example: CellMasks" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="output_results_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/OverlaysTablesResults" size="70" label="Enter path to output destination. Example: OverlaysTablesResults" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Overlay Cell Tracks Result"/>
+</outputs>
+
+<help>
+For each time point, overlays cell annotation onto the image.
+</help>
+
+</tool>

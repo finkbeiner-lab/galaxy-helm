@@ -1,0 +1,24 @@
+<tool id="neurite_counter" name="Neurite pixel counter" version="0.1">
+
+<description>Counts number of neurite pixels.</description>
+
+<command interpreter="python">
+neurites.py $raw_images_path $masks_path $fg_bg_images_path $outfile
+</command>
+
+<inputs>
+<param name="raw_images_path" type="text" format="text" value="/media/robodata/your_folders" size="70" label="Enter path to raw data." help="Note that RoboData/your_folders = /media/robodata/your_folders"/>
+<param name="masks_path" type="text" format="text" value="/media/robodata/your_folders" size="70" label="Enter path to write masks and csv output." help="Note that RoboData/your_folders = /media/robodata/your_folders"/>
+<param name="fg_bg_images_path" type="text" format="text" value="/media/robodata/your_folders" size="70" label="Enter path to foreground images." help="Note that RoboData/your_folders = /media/robodata/your_folders"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="text" label="Neurite Counter Result"/>
+</outputs>
+
+<help>
+Takes directory for raw data and foreground probability images (from Mike's module).
+Returns neurite and cell/debris masks as well as csv with sum of neurite pixels per image.
+</help>
+
+</tool>

@@ -1,0 +1,45 @@
+<tool id="track_extra" name="Track cells extra" version="0.01">
+
+<description>Find cells that are the same.</description>
+
+<command interpreter="python">
+tracking_extra.py $input_dict $input_path $tracking_source $outfile
+#if str($csv_pointer) !='':
+   --pointer_to_csv $csv_pointer
+#end if
+#if str($min_cell_size) !='':
+   --min_cell $min_cell_size
+#end if
+#if str($max_cell_size) !='':
+   --max_cell $max_cell_size
+#end if
+#if str($max_dist_possible) !='':
+   --max_dist $max_dist_possible
+#end if
+</command>
+
+<inputs>
+<param name="input_dict" type="data" format="data" label="Local variables dictionary (output from 'Segment Cells')."/>
+<param name="input_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/CellMasks" size="70" label="Enter path to cell masks or csv (depending on tracking type). Example: CellMasks" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="min_cell_size" type="text" format="text" label="Minimum feature (cell) area to capture, if not already set. Ex. 50" optional="true"/>
+<param name="max_cell_size" type="text" format="text" label="Maximum feature (cell) area to capture, if not already set. Ex. 2500." optional="true" help="Adjust minimum and maximum area of features you would like to analyze. If you find a unique min and max area that works well for your dataset, note the size relative to image dimensions (image area), to recalculate easily for different cameras. If you are running this step with the segmentation output, your segmentation parameters will be used here. Otherwise, please provide the segmentation criteria you used to generate your masks."/>
+<param name="tracking_source" type="select" label="Select whether you would like to track cells and the source of tracking info (from csv or encoded masks)." help="If cells have already been tracked and encoded masks are available, select True.">
+            <option value="TrackSpatioTemporal" selected="true"  >Track spatio-temporally</option>
+            <option value="TrackProximity" 						 >Track best proximity</option>
+            <option value="TrackFromMasks"	    	     		 >Track from encoded mask</option>
+            <option value="TrackFromCSV"	    		         >Track from csv</option>
+            <option value="SkipTracking"	    		         >Collect cell index only</option>
+</param>
+<param name="csv_pointer" type="text" format="text" label="Pointer to csv file with tracking info." value="/finkbeiner/imaging/smb-robodata/my_folders/OverlaysTablesResults/cell_data.csv" optional="true"/>
+<param name="max_dist_possible" type="text" format="text" label="If using proximity tracking, provide a maximum distance a cell might travel between successive time points, in pixels. Ex. 100." optional="true" value="100"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Track Cells Result"/>
+</outputs>
+
+<help>
+Determines which cells overlap from one time point to the next and references them to the same object.
+</help>
+
+</tool>

@@ -1,0 +1,55 @@
+<tool id="segment_dev" name="Segment cells" version="0.1">
+
+<description>Finds cells in an image.</description>
+
+<command interpreter="python -u">
+segmentation.py $input_dict $threshold_type $outfile
+
+#if $input_image_path != '':
+       --input_image_path '$input_image_path'
+#end if
+#if $output_results_path != '':
+   --output_results_path '$output_results_path'
+#end if
+#if $qc_path != '':
+   --qc_path '$qc_path'
+#end if
+#if str($min_cell_size) !='':
+   --min_cell $min_cell_size
+#end if
+#if str($max_cell_size) !='':
+   --max_cell $max_cell_size
+#end if
+#if str($intensity_threshold) !='':
+   --intensity_threshold $intensity_threshold
+#end if
+#if str($eccentricity) !='':
+   --eccentricity $eccentricity
+#end if
+</command>
+
+<inputs>
+<param name="input_dict" type="data" format="data" label="Local variables dictionary (output from 'Crop Images')."/>
+<param name="input_image_path" type="text" format="text" value="" size="70" label="Optional: Enter path to images that need to be segmented." help="Leave blank to get from AlignedImages folder in the Galaxy output folder, or enter path to images to be segmented, e.g. /finkbeiner/imaging/smb-robodata/your_folders/AlignedImages" optional='true'/>
+<param name="output_results_path" type="text" format="text" value="" size="70" label="Optional: Enter path to output Cell Masks." help="Leave blank to save to CellMasks folder in the Galaxy output folder, or enter another path, e.g. /finkbeiner/imaging/smb-robodata/your_folders/CellMasks" optional='true'/>
+<param name="qc_path" type="text" format="text" value="" size="70" label="Optional: Enter path to output Quality Control images." help="Leave blank to save to QualityControl folder in the Galaxy output folder, or enter another path, e.g. /finkbeiner/imaging/smb-robodata/your_folders/QualityControl" optional='true'/>
+<param name="min_cell_size" type="text" format="text" label="Minimum feature (cell) area to capture. Ex. 50" value="50" optional="true"/>
+<param name="max_cell_size" type="text" format="text" label="Maximum feature (cell) area to capture. Ex. 2500." value="2500" optional="true" help="Adjust minimum and maximum area of features you would like to analyze. If you find a unique min and max area that works well for your dataset, note the size relative to image dimensions (image area), to recalculate easily for different cameras."/>
+<param name="eccentricity" type="text" format="text" size="20" label="Use value between zero and one to set lowerbound to eccentricity. All eccentricity values above your threshold will be kept." value="0.1" optional="true" help="A perfect circle has eccentricity of zero. If you leave this blank, the default eccentricity lower bound will be 0.1 (as it was previously). This value works reasonably well for cells. You can increase this value to return less-circular objects, or decrease it to collect more-circular objects."/>
+<param name="threshold_type" type="select" label="Select thresholding type" help="'Intensity Percent' calculates the threshold as a user-chosen percentage of the max pixel intensity (this is the original 'Pixel Intensity' thresholding mode. 'SD from Mean' calculates the threshold as a user-chosen number of standard deviations from the mean. 'Calculate per Image' does this calculation separately for each image. 'Calculate by Dataset' first determines the mean and SD of all images in the dataset, and applies the same threshold to all images.">
+            <option value="intensity_percent_legacy" selected="true">Intensity Percent - Calculate per Image</option>
+            <option value="sd_from_mean_image">SD from Mean – Calculate per Image</option>
+            <option value="sd_from_mean_dataset">SD from Mean – Calculate per Dataset</option>
+</param>
+<param name="intensity_threshold" type="text" format="text" size="20" label="Intensity threshold (as percent or standard deviation) below which all values will be set to background." value="0.1" optional="true" help="Many datasets work well setting a threshold of 10% (all pixels below 10% of maximum intensity are treated as background). If your dataset is not returning enough cells, you can choose a lower threshold (5% or 2% even). Lower threshold values will require substantially more time to process the data, becaue more objects must be analyzed and stored. You can similarly increase the threshold to collect fewer objects ('cells') and speed up this analysis step. **Update: You can now specify threshold in terms of number of standard deviations from the mean. If using SD-based threshold, use the threshold and histogram tools in FIJI to calculate number of standard deviations from the mean required to threshold images accurately. Enter value as a multiple of standard deviations. Example: 3.5. Increases and decreases to this number work the same way as with percent-based thresholding."/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Segment Cells Result"/>
+</outputs>
+
+<help>
+Finds all objects in an image and keeps the ones that meet criteria (size, ellipticity, threshold).
+</help>
+
+</tool>

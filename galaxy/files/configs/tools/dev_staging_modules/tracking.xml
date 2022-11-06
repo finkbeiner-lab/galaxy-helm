@@ -1,0 +1,41 @@
+<tool id="track_xml" name="Track cells" version="0.01">
+
+<description>Find cells that are the same.</description>
+
+<command interpreter="python">
+tracking.py $input_dict $track_type $outfile
+#if $input_image_path != '':
+       --input_image_path '$input_image_path'
+#end if
+#if str($min_cell_size) !='':
+   --min_cell $min_cell_size
+#end if
+#if str($max_cell_size) !='':
+   --max_cell $max_cell_size
+#end if
+#if str($max_dist_possible) !='':
+   --max_dist $max_dist_possible
+#end if
+</command>
+
+<inputs>
+<param name="input_dict" type="data" format="data" label="Local variables dictionary (output from 'Segment Cells')."/>
+<param name="input_image_path" type="text" format="text" value="" size="70" label="Optional: Enter path to Cell Masks." help="Leave blank to get from Cell Masks folder in the Galaxy output folder, or enter path to images to be tracked, e.g. /finkbeiner/imaging/smb-robodata/your_folders/CellMasks" optional='true'/>
+<param name="min_cell_size" type="text" format="text" label="Minimum feature (cell) area to capture, if not already set. Ex. 50" optional="true"/>
+<param name="max_cell_size" type="text" format="text" label="Maximum feature (cell) area to capture, if not already set. Ex. 2500." optional="true" help="Adjust minimum and maximum area of features you would like to analyze. If you find a unique min and max area that works well for your dataset, note the size relative to image dimensions (image area), to recalculate easily for different cameras. If you are running this step with the segmentation output, your segmentation parameters will be used here. Otherwise, please provide the segmentation criteria you used to generate your masks."/>
+<param name="track_type" type="select" label="Select track type" help="By default (as before) A. Daub's tracking criteria (80% of radius overlap between objects) will be used. Select 'closest' to match cells based on closest proximity in subsequent images. 'Closest' option is experimental right now. Use with careful verification.">
+            <option value="overlap"   selected="true"  >Overlap</option>
+            <option value="proximity"	    		   >Closest</option>
+</param>
+<param name="max_dist_possible" type="text" format="text" label="If using proximity tracking, provide a maximum distance a cell might travel between successive time points, in pixels. Ex. 300." optional="true" value="100"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Track Cells Result"/>
+</outputs>
+
+<help>
+Determines which cells overlap from one time point to the next and references them to the same object.
+</help>
+
+</tool>

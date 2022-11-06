@@ -1,0 +1,41 @@
+<tool id="colocolize" name="Colocolize" version="0.1">
+
+<description>Make mask of colocolized regions from two images.</description>
+
+<command interpreter="python">
+colocolize.py $input_dict $input_image_path $output_path_coloc_masks $channel1_name $channel2_name $outfile 
+#if str($c1min) !='': 
+   -min1 $c1min
+#end if
+#if str($c1max) !='': 
+   -max1 $c1max
+#end if
+#if str($c2min) !='': 
+   -min2 $c2min
+#end if
+#if str($c2max) !='': 
+   -max2 $c2max
+#end if
+</command>
+
+<inputs>
+<param name="input_dict" type="data" format="data" label="Local variables dictionary (output from 'Crop Images')."/>
+<param name="input_image_path" type="text" format="text" value="/media/robodata/your_folders" size="70" label="Enter path to images that will be used in colocalization. Example: AlignedImages" help="Note that RoboData/your_folders = /media/robodata/your_folders"/>
+<param name="output_path_coloc_masks" type="text" format="text" value="/media/robodata/your_folders" size="70" label="Enter path to write colocolization masks. Example: ColocMasks" help="Note that RoboData/your_folders = /media/robodata/your_folders"/>
+<param name="channel1_name" type="text" format="text" label="Enter unique channel identifier for channel1. This should match the characters in filename." help="Ex. RFP, FITC, Green, 607"/>
+<param name="channel2_name" type="text" format="text" label="Enter unique channel identifier for channel2. This should match the characters in filename." help="Ex. RFP, FITC, Green, 607"/>
+<param name="c1min" type="text" format="text" label="Minimum intentisy to use for channel 1. Ex. 10" value="10" optional="true"/>
+<param name="c1max" type="text" format="text" label="Maximum intentisy to use for channel 1. Ex. 255" value="255" optional="true"/>
+<param name="c2min" type="text" format="text" label="Minimum intentisy to use for channel 2. Ex. 10" value="10" optional="true"/>
+<param name="c2max" type="text" format="text" label="Maximum intentisy to use for channel 2. Ex. 255" value="255" optional="true"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Colocolize Intensities"/>
+</outputs>
+
+<help>
+Use min and max intensities for each channel to threshold images and return mask of co-occuring pixels.
+</help>
+
+</tool>

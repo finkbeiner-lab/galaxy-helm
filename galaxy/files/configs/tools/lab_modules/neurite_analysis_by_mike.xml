@@ -1,0 +1,21 @@
+<tool id="neurite_analysis_by_mike" name="Neurite Analysis By Mike">
+
+<description>Neurite background and foreground extraction.</description>
+
+<command interpreter="python">
+neurite_analysis_by_mike.py $input_image_path $output_results_path $outfile
+</command>
+
+<inputs>
+<param name="input_image_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders" size="70" label="Enter path to images that need to do neurite background and foreground extraction" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="output_results_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders" size="70" label="Enter path to output destination." help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Analysis Result"/>
+</outputs>
+
+<help>
+Neurite background and foreground extraction by Mike.
+</help>
+</tool>

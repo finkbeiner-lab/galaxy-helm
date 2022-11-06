@@ -1,0 +1,29 @@
+<tool id="montage_versions" name="Montage" version="1.0">
+<description>stitches together a matrix of images.</description>
+
+<command interpreter="python">
+montage_mp.py $infile $montage_order $input_image_path $output_results_path $outfile
+
+</command>
+
+<inputs>
+<param name="infile" type="data" format="data" label="Local variables dictionary (output from 'Correct Background')."/>
+<param name="montage_order" type="select" label="Select montage order type" help="">
+            <option value="robo034" selected='true'>Robo0/3/4</option>
+            <option value="robo5">Robo5</option>
+            <option value="robo6">Robo6</option>
+            <option value="ixm">IXM</option>
+</param>
+<param name="input_image_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/BackgroundCorrected" size="70" label="Enter path to images that need to be montaged. Example: BackgroundCorrected" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="output_results_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/MontagedImages" size="70" label="Enter path to output destination. Example: MontagedImages" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+
+</inputs>
+
+<outputs>
+<data name="outfile" type="data" format="data" label="Stitch Images/Montage Distributed Result"/>
+</outputs>
+
+<help>
+Creates a montage of specified matrix dimensions.
+</help>
+</tool>

@@ -1,0 +1,72 @@
+<tool id="query_db_to_csv" name="Query database and output to csv">
+
+<description>Create labeled csv from database</description>
+
+<command interpreter="python">
+<!-- No comma between arguments -->
+
+
+#if $source.source_select=="type_in"
+query_db_to_csv.py $source.type_in_table $user_name $output_csv
+#else
+query_db_to_csv.py $source.history_dataset_table $user_name $output_csv
+#end if
+
+
+#if str($experiment_name) != '':
+    --experiment_name '$experiment_name'
+#end if
+#if str($well_id) != '':
+    --well_id '$well_id'
+#end if
+#if str($obj_id) != '':
+    --obj_id '$obj_id'
+#end if
+#if str($channel) != '':
+    --channel '$channel'
+#end if
+#if str($phenotype) != '':
+    --phenotype '$phenotype'     
+#end if
+#if str($live) != '':
+    --live '$live'
+#end if           
+
+</command>
+
+<inputs>
+
+
+<conditional name="source">
+    <param name="source_select" type="select" label="Table name source">
+        <option value="type_in">Manually type in</option>
+        <option value="history_dataset">Select from history dataset</option>
+    </param>
+    <when value="type_in">
+        <param name="type_in_table" type="text" value="Images" label="Table name" help="Default table name: Images"/>
+    </when>
+    <when value="history_dataset">
+        <param name="history_dataset_table" type="data" label="Table name" format="txt"/>
+    </when>
+</conditional>
+<param name="user_name" type="text" label="User name" help="Type in your name"/>
+<param name="experiment_name" type="text" value="" label="Experiment name (optional)" help="E.g. BioP7asynA.  Use comma to separate values." optional="true"/>
+<!-- Be careful of the space between parameters, since galaxy will show nothing and indicate no error trace-->
+<param name="well_id" type="text" value="" label="Well ID (optional)" help="E.g. A1.  Use comman to separate values" optional="true"/>
+<!-- No format tag like text if type is integer, and has to provide value tag-->
+<param name="obj_id" type="text"  value="" label="Object ID (optional)" help="Oject ID is integer.  Use comman to separate values." optional="true"/>
+<param name="channel" type="text" value="" label="Channel (optional)" help="E.g. RFP-DFTrCy5.  Use comman to separate values." optional="true"/>
+<param name="phenotype" type="text" value="" label="Phenotype (optional)" help="Phenotype attribute is integer. 0 for neuron, 1 for glia, 2 for debris.  Use comman to separate values." optional="true"/>
+<param name="live" type="text" value="" label="Live (optional)" help="Live attribute is integer. 0 for dead, 1 for live.  Use comman to separate values." optional="true"/>
+
+
+</inputs>
+
+<outputs>
+<data name="output_csv" format="csv" label="LabeledCsv[ExperimentName:${experiment_name}][WellID:${well_id}][ObjectID:${obj_id}][Channel:${channel}][Phenotype:${phenotype}][Live:${live}]_${user_name}"/>
+</outputs>
+
+<help>
+
+</help>
+</tool>

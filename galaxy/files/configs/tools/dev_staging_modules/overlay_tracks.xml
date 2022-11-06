@@ -1,0 +1,35 @@
+<tool id="draw_track_dev" name="Overlay Cell Tracks" version="0.01">
+
+<description>Add cell annotation to images.</description>
+
+<command interpreter="python">
+overlay_tracks.py $input_dict $outfile
+
+#if $input_image_path != '':
+       --input_image_path '$input_image_path'
+#end if
+#if $output_results_path != '':
+   --output_results_path '$output_results_path'
+#end if
+#if $mask_path != '':
+   --mask_path '$mask_path'
+#end if
+
+</command>
+
+<inputs>
+<param name="input_dict" type="data" format="data" label="Local variables dictionary (output from 'Track Cells')."/>
+<param name="input_image_path" type="text" format="text" value="" size="70" label="Optional: Enter path to images to be annotated." help="Leave blank to get from AlignedImages folder in the Galaxy output folder, or enter path to images to be annotated, e.g. /finkbeiner/imaging/smb-robodata/your_folders/AlignedImages" optional='true'/>
+<param name="mask_path" type="text" format="text" value="" size="70" label="Optional: Enter path to Cell Masks." help="Leave blank to get from CellMasks folder in the Galaxy output folder, or enter path to Cell Masks, e.g. /finkbeiner/imaging/smb-robodata/your_folders/CellMasks" optional='true'/>
+<param name="output_results_path" type="text" format="text" value="" size="70" label="Optional: Enter path to save Overlays." help="Leave blank to save to OverlaysTablesResults folder in the Galaxy output folder, or another output path, e.g. /finkbeiner/imaging/smb-robodata/your_folders/OverlaysTablesResults" optional='true'/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Overlay Cell Tracks Result"/>
+</outputs>
+
+<help>
+For each time point, overlays cell annotation onto the image.
+</help>
+
+</tool>

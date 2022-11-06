@@ -1,0 +1,41 @@
+<tool id="GEDI_CNN_testing" name="GEDI CNN Testing" version="0.01">
+
+<description>Uses trained CNN to determine live/dead status for single-cell cropped images.</description>
+
+<requirements>
+    <requirement type="package" version="1.7.0">tensorflow-gpu</requirement>
+</requirements>
+
+<command interpreter="python">
+GEDI_CNN_testing.py $input_var_dict
+
+#if $image_dir != '':
+   --image_dir '$image_dir'
+#end if
+#if $output_dir != '':
+   --output_dir '$output_dir'
+#end if
+#if $models_dir != '':
+   --models_dir '$models_dir'
+#end if
+</command>
+
+<inputs>
+<param name="input_var_dict" type="data" format="data" label="Local variables dictionary (e.g. output from 'Object Cropper')"/>
+
+<param name="image_dir" type="text" format="text" value="" size="70" label="Optional: Enter path to cropped images (e.g. ObjectCrops)." help="Leave blank to get from ObjectCrops folder in Galaxy output folder, or enter path to cropped images, e.g. /finkbeiner/imaging/smb-robodata/your_folders/ObjectCrops" optional='true'/>
+
+<param name="output_dir" type="text" format="text" value="" size="70" label="Optional: Enter path to where results should output." help="Leave blank to save results to the Galaxy output folder, or enter a path, e.g. /finkbeiner/imaging/smb-robodata/your_folders/" optional='true'/>
+
+<param name="models_dir" type="text" format="text" value="" size="70" label="Optional: Enter path to where CNN models are located." help="Leave blank to use the default models on the NAS (robodata/Galaxy/GEDICNN_models), or enter a path, e.g. /finkbeiner/imaging/smb-robodata/your_folders/" optional='true'/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="data" format="data" label="GEDI CNN Testing"/>
+</outputs>
+
+<help>
+Uses trained CNN to determine live/dead status for single-cell cropped images.
+</help>
+
+</tool>

@@ -1,0 +1,65 @@
+<tool id="correct_bg_versions_dev" name="Correct Background">
+<description>Divide Median Values</description>
+
+<command interpreter="python">
+#if str($process_mode) == 'multiprocessing':
+    background_removal_mp.py
+#else:
+    background_removal_distributed.py
+#end if
+
+$infile $background_removal_type $batch_size $fill_edges $erode_its $outfile
+
+#if $input_path != '':
+       --input_path '$input_path'
+#end if
+#if $output_path != '':
+       --output_path '$output_path'
+#end if
+#if $qc_path != '':
+       --qc_path '$qc_path'
+#end if
+#if str($background_well) !='':
+   --chosen_bg_well '$background_well'
+#end if
+#if str($masks_path) !='':
+    --masks_path '$masks_path'
+#end if
+</command>
+
+<inputs>
+<param name="infile" type="data" format="data" label="Local variables dictionary (output from 'Create Folders')."/>
+<param name="process_mode" type="select" label="Select a processing mode" help="Multiprocessing use all the cores in one node while Distributed use all the cores in all nodes in the cluster">
+            <option value="multiprocessing" selected='true'>MultiProcessing</option>
+            <option value="distributed">Distributed</option>
+</param>
+<param name="input_path" type="text" format="text" value="" size="70" label="Optional: Enter path to images to background correct." help="Leave blank to get from raw images folder, or enter path to images to be background corrected, e.g. /finkbeiner/imaging/smb-robodata/your_folders/raw"/>
+<param name="output_path" type="text" format="text" value="" size="70" label="Optional: Enter path to output destination. Example: BackgroundCorrected" help="Leave blank to save to BackgroundCorrected folder in the Galaxy output folder, or enter path to output folder, e.g. /finkbeiner/imaging/smb-robodata/your_folders/BackgroundCorrected"/>
+<param name="qc_path" type="text" format="text" value="" size="70" label="Optional: Enter path to output background quality control images. Example: QualityControl" help="Leave blank to save to QualityControl folder in the Galaxy output folder, or enter path to output folder, e.g. /finkbeiner/imaging/smb-robodata/your_folders/QualityControl"/>
+<param name="background_removal_type" type="select" label="Select removal type" help="Division tends to work better visually for montage. Choose subtraction for quantitative pixel analysis downstream. The generated background image is a median image of all panels in the well. When negative values arise in subtraction, they are set to zero.">
+            <option value="division" selected="true"  >Division</option>
+            <option value="subtraction" >Subtraction</option>
+            <option value="subtraction_panel_batch" >Subtraction by Panel Batch</option>
+</param>
+<param name="background_well" type="text" format="text" value="" size="70" label="Optional: Enter the well used as background for subtraction. If provided, last removal type option will be ignored." help="e.g., A1" optional="true"/>
+<param name="batch_size" type="text" format="text" value="9" size="70" label="Enter the batch size for Subtraction by Panel Batch" help="Used for subtraction by panel batch only, otherwise this value is ignored. Number of wells must be greater than or equal to batch size."/>
+<param name="fill_edges" type="select" label="Fill well edges and interwell space with noise?" help="Currently supported for 'Subtraction by Panel Batch' only. Requires a green channel (FITC or GFP).">
+            <option value="False" selected="true"  >Don't fill well edges</option>
+            <option value="True" >Fill well edges</option>
+</param>
+<param name="erode_its" type="text" format="text" value="5" size="70" label="Amount of erosion after detecting well edges. Enter an integer, typically between 3-10 works well." help="This value is used only if the 'Fill well edges' option is selected. Erosion cleans up the edges of the wells." />
+<param name="masks_path" type="text" format="text" value="" size="70" label="Optional: Enter path to masks for 'Fill well edges'." help="Leave blank to get from 'EdgeMasks' folder in the Galaxy output folder. This value is used only if the 'Fill well edges' option is selected. Background subtraction will occur only in parts of the image where the mask has a value of >0." />
+</inputs>
+
+<outputs>
+<data name="outfile" type="data" format="data" label="Background Correction Result"/>
+</outputs>
+
+<help>
+Calculates a median value from all panels belonging to a montaged image.
+Creates a median-valued image.
+Subtracts median image from each image to be corrected.
+Divides by median image. Resets values to 16-bit.
+If microscope background image is given, will use it to subtract from signal.
+</help>
+</tool>

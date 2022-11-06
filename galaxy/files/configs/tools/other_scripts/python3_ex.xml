@@ -1,0 +1,25 @@
+<tool id="python3_example" name="Print Python Version" version="0.01">
+
+<description>Prints the version of python called in module.</description>
+
+<command>
+source /finkbeiner/imaging/home/fbgalaxy/.virtualenvs/insilico/bin/activate;
+/finkbeiner/imaging/home/fbgalaxy/.virtualenvs/insilico/bin/python3.6 /finkbeiner/imaging/home/galaxy/tools/other_scripts/python3_ex.py $outfile
+</command>
+
+<!-- <command> -->
+<!-- /finkbeiner/imaging/home/galaxy/tools/other_scripts/python3_ex.sh $outfile -->
+<!-- </command> -->
+
+<inputs>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="txt" label="Python3 Version"/>
+</outputs>
+
+<help>
+A simple example of how to run python 3 out of of python 2 Galaxy.
+</help>
+
+</tool>

@@ -1,0 +1,19 @@
+<tool id="montage" name="Stitch Images: ImageJ" version="0.01">
+<description>Stitches together a matrix of images.</description>
+
+<command interpreter="python">
+auto_montage.py $image_path $outfile
+</command>
+
+<inputs>
+<param name="image_path" type="data" format="data" label="Enter path to images you would like montaged."/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="data" format="data" label="Montage Result"/>
+</outputs>
+
+<help>
+Creates a montage of images in specified path.
+</help>
+</tool>

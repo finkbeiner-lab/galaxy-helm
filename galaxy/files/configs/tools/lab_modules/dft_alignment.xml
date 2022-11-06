@@ -1,0 +1,22 @@
+<tool id="dft_alignment" name="Alignment: DFT">
+
+<description>DFT alignment.</description>
+
+<command interpreter="python">
+dft_alignment.py $input_var_dict $input_image_path $output_results_path $outfile
+</command>
+
+<inputs>
+<param name="input_var_dict" type="data" format="data" label="Local variables dictionary (output from 'Montage')."/>
+<param name="input_image_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/MontagedImages" size="70" label="Enter path to images that need to be aligned. Example: MontagedImages" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="output_results_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders/AlignedImages" size="70" label="Enter path to output destination. Example: AlignedImages" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Alignment Result"/>
+</outputs>
+
+<help>
+DFT alignment.
+</help>
+</tool>

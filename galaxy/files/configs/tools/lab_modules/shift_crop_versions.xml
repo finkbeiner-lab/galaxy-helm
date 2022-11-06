@@ -1,0 +1,27 @@
+<tool id="crop" name="Crop Images" version="1">
+
+<description>Crops out alignment-introduced edges.</description>
+
+<command interpreter="python">
+shift_crop_versions.py $infile $process_mode $input_path $output_path $outfile
+</command>
+
+<inputs>
+<param name="infile" type="data" format="data" label="Local variables dictionary (output from 'Alignment')."/>
+<param name="process_mode" type="select" label="Select a processing mode" help="Multiprocessing use all the cores in one node while Distributed use all the cores in all nodes in the cluster">
+            <option value="multiprocessing" selected='true'>MultiProcessing</option>
+            <option value="distributed">Distributed</option>
+</param>
+<param name="input_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders" size="70" label="Enter path to aligned images. Example: AlignedImages" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="output_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_folders" size="70" label="Enter path to output cropped images. Example: CroppedImages" help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Crop Images Result"/>
+</outputs>
+
+<help>
+Removes borders due to shifting. Sets all images to a common matrix. Only cells within this matrix will be tracked.
+</help>
+
+</tool>

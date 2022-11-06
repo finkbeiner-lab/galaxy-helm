@@ -1,0 +1,39 @@
+<tool id="ISL_flatfield_correction" name="In-Silico Labeling - Flat field Correction" version="0.01">
+
+    <description> This script is to flat field correct images.</description>
+
+    <command interpreter="python">
+        <!-- home/sinadabiri/galaxy-neuron-analysis/galaxy -->
+
+        /finkbeiner/imaging/home/galaxy-neuron-analysis/galaxy/tools/dev_staging_modules/ISL_flatfield_correction.py
+        $infile $images_path $output_path '$channels' $outfile
+
+    </command>
+
+    <inputs>
+        <param name="infile" type="data" format="data" label="Local variables dictionary (output from 'Create Folders')."/>
+
+        <param name="images_path" type="text" format="text" label="Specify path for images."
+               value="/finkbeiner/imaging/smb-robodata/your_folders" help="For example: /finkbeiner/imaging/smb-robodata/your_folders" size="70" />
+
+        <param name="output_path" type="text" format="text"
+               label="Specify path for the output, where the flat field corrected images will be saved."
+               value="/finkbeiner/imaging/smb-robodata/your_folders/outputs/"
+               help="For example: /finkbeiner/imaging/smb-robodata/your_folders" size="70" />
+
+        <param name="channels" type="text" format="text"
+               label="Specify channels to flat field correct."
+               value=""
+               help="For example: DAPI,RFP,GFP" size="70" />
+    </inputs>
+
+    <outputs>
+        <data name="outfile" type="data" format="data" label="ISL_FFC"/>
+    </outputs>
+
+    <help>
+        This interface sends Unix commands to run In-Silico Labeling Flat Field Correction program (Christiansen et al
+        2018). This module is for the preprocessing the dataset before prediction or training.
+    </help>
+
+</tool>

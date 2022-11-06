@@ -1,0 +1,24 @@
+<tool id="create_or_add_new_images_database" name="Create or add new images database">
+
+<description>Create new database for holding images Or add new images to existing database.</description>
+
+<command interpreter="python">
+create_or_add_new_images_database.py $table_name $images_path $masks_path $out_report
+</command>
+
+<inputs>
+<param name="table_name" type="text" value="Images" label="Table name" help="Current table name is 'Images'. New table will be created if table name does not exist"/>
+<param name="images_path" type="text" label="Original images path" help="Type in the absolute folder path of original images. e.g. '/Images/CroppedImages/' "/>
+<param name="masks_path" type="text" label="Mask images path" help="Type in the absolute folder path of mask images. e.g. '/Images/CellMasks/' "/>
+</inputs>
+
+<outputs>
+<data name="out_report" format="txt" label="Table"/>
+</outputs>
+
+<help>
+Note: The data will be inserted to the destination database. The resulting text file in History pane contains the created database file path and the table name.
+</help>
+</tool>
+
+

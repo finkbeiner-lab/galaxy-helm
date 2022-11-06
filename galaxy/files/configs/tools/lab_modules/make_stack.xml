@@ -1,0 +1,30 @@
+<tool id="stack" name="Stack and save: ImageJ">
+
+<description>ImageJ Import Sequence.</description>
+
+<command interpreter="python">
+make_stack_magically.py $input_image_path $output_results_path $robo_num $light_path $outfile
+</command>
+
+<inputs>
+<param name="input_image_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/your_experiment_folder" size="70" label="Enter path to data you would like processed. Make sure path exists." help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="output_results_path" type="text" format="text" value="/finkbeiner/imaging/smb-robodata/Others" size="70" label="Enter path to where you would like output to go. Make sure path exists." help="Note that RoboData/your_folders = /finkbeiner/imaging/smb-robodata/your_folders"/>
+<param name="robo_num" type="select" label="Select light path" help="Select Robo used for imaging.">
+            <option value="3"  selected="true"  >Robo3</option>
+            <option value="4"                   >Robo4</option>
+</param>
+<param name="light_path" type="select" label="Select light path" help="Select type of imaging: Epi or Confocal.">
+            <option value="epi" selected="true"    >Epi fluorescence</option>
+            <option value="confocal"                       >Confocal</option>
+</param>
+<!-- <param name="input_var_dict" type="data" format="data" label="Local variables dictionary."/> -->
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="data" label="Stack Result"/>
+</outputs>
+
+<help>
+Calls ImageJ import sequence function.
+</help>
+</tool>

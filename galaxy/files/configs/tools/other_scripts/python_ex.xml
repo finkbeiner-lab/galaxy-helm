@@ -1,0 +1,21 @@
+<tool id="python_command" name="Python example" version="0.01">
+
+<description>Send a unix command to terminal prompt.</description>
+
+<command interpreter="python">
+python_ex.py $string_to_print
+</command>
+
+<inputs>
+<param name="string_to_print" type="text" format="text" label="Enter string to print to screen."/>
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="text" label="python_ex_output"/>
+</outputs>
+
+<help>
+Sends a python command to prompt.
+</help>
+
+</tool>

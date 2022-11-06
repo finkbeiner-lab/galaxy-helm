@@ -1,0 +1,89 @@
+<tool id="nucleus" name="Nucleus Project Outpout CSV">
+
+<description>Nucleus Project Processing</description>
+
+<command interpreter="python">
+<!-- No comma between arguments!! It will actually run in comman line -->
+<!-- Use single quotes to protest path possible with parentheses running in bash shell -->
+
+nucleus_project.py '$cells_path' '$nucleuses_path' '$cytoplasms_path' '$encoded_masks_path' $result_csv
+
+#if str($start_timepoint) != '':
+    --start_timepoint $start_timepoint
+#end if
+#if str($cell_threshold_intensity) != '':
+    --cell_threshold_intensity $cell_threshold_intensity
+#end if
+#if str($cell_min_area) != '':
+    --cell_min_area $cell_min_area
+#end if
+#if str($cell_max_area) != '':
+    --cell_max_area $cell_max_area
+#end if
+#if str($cell_min_circularity) != '':
+    --cell_min_circularity $cell_min_circularity     
+#end if
+#if str($cell_max_circularity) != '':
+    --cell_max_circularity $cell_max_circularity     
+#end if
+
+#if str($nucleus_threshold_intensity) != '':
+    --nucleus_threshold_intensity $nucleus_threshold_intensity
+#end if
+#if str($nucleus_min_area) != '':
+    --nucleus_min_area $nucleus_min_area
+#end if
+#if str($nucleus_max_area) != '':
+    --nucleus_max_area $nucleus_max_area
+#end if
+#if str($nucleus_min_circularity) != '':
+    --nucleus_min_circularity $nucleus_min_circularity     
+#end if
+#if str($nucleus_max_circularity) != '':
+    --nucleus_max_circularity $nucleus_max_circularity     
+#end if         
+
+</command>
+
+<inputs>
+
+<param name="cells_path" type="text" label="Cells path" help="Source cells images directory"/>
+<param name="nucleuses_path" type="text" label="Nucleuses path" help="Source nucleus images directory"/>
+<param name="cytoplasms_path" type="text" label="Cytoplasms path" help="Source cytoplasm images directory"/>
+
+<param name="encoded_masks_path" type="text" label="Encoded masks output path" help="Set encoded masks output directory"/>
+
+
+ 
+<!-- Be careful of the space between parameters, since galaxy will show nothing and indicate no error trace-->
+ 
+<!-- No format tag like text if type is integer, and has to provide value tag-->
+<param name="start_timepoint" type="text"  value="" label="Start timepoint (optional), default = 'T0'" help="start timepoint" optional="true"/>
+<param name="cell_threshold_intensity" type="integer"  value="" label="Cell threshold intensity" help="integer" optional="false"/>
+<param name="cell_min_area" type="float" value="" label="Cell minimum area (optional), default = 500.0" help="float" optional="true"/>
+<param name="cell_max_area" type="float" value="" label="Cell maximum area (optional), default = 50000.0" help="float" optional="true"/>
+<param name="cell_min_circularity" type="float" value="" label="Cell minimum circularity (optional), default = 0.001" help="float, A circle has a circularity of 1, circularity of a square is 0.785, and so on." optional="true"/>
+<param name="cell_max_circularity" type="float" value="" label="Cell maximum circularity (optional), default = 0.25" help="float, A circle has a circularity of 1, circularity of a square is 0.785, and so on." optional="true"/>
+
+<param name="nucleus_threshold_intensity" type="integer"  value="" label="Nucleus threshold intensity" help="integer" optional="false"/>
+<param name="nucleus_min_area" type="float" value="" label="Nucleus minimum area (optional), default = 100.0" help="float" optional="true"/>
+<param name="nucleus_max_area" type="float" value="" label="Nucleus maximum area (optional), default = 8000.0" help="float" optional="true"/>
+<param name="nucleus_min_circularity" type="float" value="" label="Nucleus minimum circularity (optional), default = 0.19" help="float, A circle has a circularity of 1, circularity of a square is 0.785, and so on." optional="true"/>
+<param name="nucleus_max_circularity" type="float" value="" label="Nucleus maximum circularity (optional), default = 0.98" help="float, A circle has a circularity of 1, circularity of a square is 0.785, and so on." optional="true"/>
+
+
+ 
+
+
+
+</inputs>
+
+<outputs>
+<data name="result_csv" format="csv" label="result_output"/>
+
+</outputs>
+
+<help>
+
+</help>
+</tool>

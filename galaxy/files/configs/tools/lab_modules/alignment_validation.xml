@@ -1,0 +1,33 @@
+<tool id="align-validate" name="Alignment Validation">
+
+<description>Evaluates alignment quality per well.</description>
+
+<command interpreter="python">
+alignment_validation.py $path_to_aligned_images $morphology_channel $wells $validation_metric $csv_flag $outfile
+
+<!-- #if str($path_to_csv_output) !='': 
+   - -csv_path $path_to_csv_output
+#end if -->
+
+</command>
+
+<inputs>
+<param name="path_to_aligned_images" type="text" format="text" label="Enter path to directory containing aligned images."/>
+<param name="morphology_channel" type="text" format="text" label="Enter morphology channel identifier. This should match the characters in filename." help="Ex. RFP, FITC, Green, 607"/>
+<param name="wells" type="text" format="text" value="" size="70" label="Optional: Enter wells you would like analyzed, separated by commas. Duplicates will be removed." help="Ex. A1,A8,A8,A10,H11,H1" optional="true"/>
+<param name="validation_metric" type="select" label="Optional: Select validation metric" help="Select method by which to evaluate alignment.">
+            <option value="border" selected="true"  >Image shift</option>
+            <option value="persistence"             >Persistence Time</option>
+</param>
+<param name="csv_flag" type="boolean" checked="false" truevalue="True" falsevalue="False" label="CSV output"  help="Select whether you would like to produce csv output." />
+<!-- <param name="path_to_csv_output" type="text" format="text" label="If generating csv output, enter path to write csv output." help="Note that RoboData/your_folders = /media/robodata/your_folders" optional="true"/> -->
+</inputs>
+
+<outputs>
+<data name="outfile" type="text" format="tabular" label="Alignment Validation Result"/>
+</outputs>
+
+<help>
+Returns wells that are poorly aligned in order from worst to best.
+</help>
+</tool>

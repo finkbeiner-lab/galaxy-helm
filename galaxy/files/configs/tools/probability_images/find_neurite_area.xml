@@ -1,0 +1,21 @@
+<tool id="neurite_area" name="Neurite areas">
+
+<description>Counts neurite pixels per thresholded probability image.</description>
+
+<command interpreter="python">
+find_neurite_area.py $input_images_path $probability_thresh $ouput_delim 
+</command>
+
+<inputs>
+<param name="input_images_path" type="text" format="text" label="Path to directory containing input images." help="Ex. /media/robodata/YourName/YourExperiment/"/>
+<param name="probability_thresh" type="float" format="text" value=".50" label="Percent of probability image to keep. Ex. .50"/>
+</inputs>
+
+<outputs>
+<data name="ouput_delim" type="text" format="tabular" label="Neurite Area Result"/>
+</outputs>
+
+<help>
+Calls ImageJ Plugin.
+</help>
+</tool>
