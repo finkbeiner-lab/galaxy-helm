@@ -141,7 +141,7 @@ celeryBeat:
     timeoutSeconds: 10
 
 metrics:
-  enabled: true
+  enabled: false
   annotations: {}
   podAnnotations: {}
   podSpecExtra: {}
